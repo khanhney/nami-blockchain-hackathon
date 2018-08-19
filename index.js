@@ -12,6 +12,7 @@ const mongoose = require('mongoose');
 const accountRoute = require('./src/controllers/users');
 const productRoute = require('./src/controllers/products');
 const transactionRoute = require('./src/controllers/transactions');
+const viewRoute = require('./src/controllers/transactions');
 
 /**
  * APP CONFIG
@@ -23,6 +24,7 @@ app.use(express.static('./public'));
 app.use(bodyParser);
 app.use(body.json());
 
+app.use('/api/v.1', viewRoute);
 app.use('/api/v.1/product', productRoute);
 app.use('/api/v.1/account', accountRoute);
 app.use('/api/v.1/transaction', transactionRoute);

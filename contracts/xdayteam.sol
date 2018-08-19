@@ -1,4 +1,4 @@
- pragma solidity ^0.4.23;
+pragma solidity ^0.4.23;
 
 /**
  * @title Ownable
@@ -182,9 +182,6 @@ contract XDAYTEAM is Ownable {
             account_info.name = _name;
             account_info.phone = _phone;
             account_info.role = _role;
-            
-            //set default balance
-            account_info.balance = 100;
             
             accountAccts.push(_idAddress) -1;
         }
