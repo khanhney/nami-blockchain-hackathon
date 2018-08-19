@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta name="viewport" content="width=1,initial-scale=1,user-scalable=1" />
+	<title>XDAY TEAM</title>
+
+	<link href="http://fonts.googleapis.com/css?family=Lato:100italic,100,300italic,300,400italic,400,700italic,700,900italic,900" rel="stylesheet" type="text/css">
+	<link rel="stylesheet" type="text/css" href="/assets/bootstrap/css/bootstrap.min.css" />
+	<link rel="stylesheet" type="text/css" href="/assets/css/styles.css" />
+
+	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+		<style>
+		.login-form{
+			max-width: 600px;
+		}
+			.form{
+				color: #5d5d5d;
+				background: #f2f2f2;
+				padding: 26px;
+				border-radius: 10px;
+				-moz-border-radius: 10px;
+				-webkit-border-radius: 10px;
+			}
+		</style>
+</head>
+<body>
+
+	<section class="container">
+			<section class="login-form">
+				<div class="form">
+					<div class="row">
+						<div class="col-md-8">
+							<h3>Hello <%= account[1]%></h3>
+							<p>
+								<b>Phone:</b> <%= account[2]%><br/>
+								<b>Role: <%= infoDetail.role%></b> 
+								
+
+								<br/>
+								<b><a href="https://rinkeby.etherscan.io/tx/0xdd2cacc7d48651fb502af58494a99b7176c1dce1e21f54691234d873fd97fff8">
+									Verify blockchain</a> </b>
+							</p>
+						</div>
+						<div class="col-md-4">
+							<h3>Balance</h3>
+							<p style="font-size: 26px;
+    font-weight: bold;
+    color: green;">
+							1000
+						</p>
+							<b><a href="">History transaction</a></b>
+						</div>
+
+					</div>
+
+<input type="text" id="data_idAddress" _id="<%= idAddresBoss%>" hidden>
+<input type="text" id="data_product" _id="<%= product._id%>" hidden>
+					<hr/>
+					<div class="row">
+						<div class="col-md-8">
+							<h3>Order deliver</h3>
+							<p>
+								<%var tempDataCreate =  moment(product.createAt).startOf('hours').fromNow();%>
+								<b>Create At:</b> <%=tempDataCreate%><br/>
+								<b>Name:</b> <%= product.user.idAddress%><br/>
+								<b><a href="https://rinkeby.etherscan.io/tx/0x93fb21927950d9efa2998099bb64e9eb8b4da34349dc95f7d2b3ad136158fb11">
+									Verify blockchain</a> </b>
+							</p>
+						</div>
+						<div class="col-md-4">
+							<b><a href="new-order.html">New Order</a></b>
+						</div>
+					</div>
+
+					<hr/>
+					<h3>Shipper</h3>
+					<table class="table table-hover">
+  <thead>
+    <tr>
+      <th scope="col">Name</th>
+      <th scope="col">Phone</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+		<%listPartnerInfo.forEach(item => {%>
+			<tr>
+					<td><%= item[1]%></td>
+					<td><%= item[2]%></td>
+					<td><button data-toggle="modal" data-target="#myModal" class="btn btn-success deliverForAddTransaction" _id="<%= item[0]%>">Deliver</button></td>
+				</tr>
+		<%})%>
+  </tbody>
+</table>
+				</div>
+
+				<div class="form-links">
+					<a href="#">XDAY TEAM</a>
+				</div>
+			</section>
+	</section>
+
+	<!-- Trigger the modal with a button -->
+<!-- <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Open Modal</button> -->
+
+<!-- Modal -->
+<div id="myModal" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <h4 class="modal-title">Enter Address Customer</h4>
+      </div>
+      <div class="modal-body">
+        <input type="text" class="form-control" placeholder="ADDRESS CUSTOMER" id="addressCustomer"> <br>
+				<input type="text" class="form-control" placeholder="PRICE SHIP" id="priceShip"> <br>
+				<button class="btn btn-primary" id="btnSubmitTransaction">SUBMIT</button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+	<script>
+		$(document).ready(function(e) {
+        $('.deliverForAddTransaction').on('click', function() {
+					var  accountB = $(this).attr('_id');
+					$('#btnSubmitTransaction').on('click', function(){
+						const  product = $('#data_product').attr('_id');
+						const  accountA = $('#data_idAddress').attr('_id');
+						const addressCustomer = $('#addressCustomer').val();
+						const priceShip = $('#priceShip').val();
+
+						const objData = {
+							accountA, accountB, product, addressCustomer, priceShip
+						};
+						console.log(objData)
+						$.ajax({
+							url: '/api/v.1/transaction/add-transaction',
+							method: 'POST',
+							data: objData,
+							success: function(cb) {
+								console.log(cb);
+								$('#myModal').modal('hide');
+								alert('add transaction success');
+							},
+							error: function(cb) {
+								console.log(cb);
+								alert('add transaction ERROR');
+							}
+						})
+					})
+				});    
+		})	
+	</script>
+</body>
+</html>

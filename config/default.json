@@ -2,7 +2,7 @@
     "provider": "https://rinkeby.infura.io/gZXjFZI0io2O0HexZV6c",
     "contract": {
         "name": "XDAYTEAM",
-        "address": "0x0026bd33cb2c7cff9ac45eb6b38719c5a177f495",
+        "address": "0xb7fc7f757e5b5b0d51e108a04d2e69a917f1994f",
         "gasLimitDefault": 210000,
         "gasPriceDefault": 20000000000,
         "owner": {

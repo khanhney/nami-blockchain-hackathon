@@ -4,7 +4,6 @@
 const express = require('express');
 const route = express.Router();
 const contractService = require('../../helps/index.js')(require('config').get('provider'));
-
 /**
  * IMPORT INTERNAL
  */
@@ -45,6 +44,9 @@ route.post('/add-transaction',  async(req, res) => {
     /**
      * addressCustomer: DIA CHI NHAN HANG
      */
+    console.log({
+        demo: req.body,
+    })
     const { accountA, accountB, product, addressCustomer, priceShip } = req.body;
     /**
      * SAVE DB
@@ -53,15 +55,15 @@ route.post('/add-transaction',  async(req, res) => {
     try {
        infoTransaction = await User.find({
            $or: [
-               { _id: accountA },
-               { _id: accountB }
+               { idAddress: accountA },
+               { idAddress: accountB }
            ]
        });
        if (!infoTransaction) return res.json({
            error: true,
            message: 'cannot_get_info_user'
        });
-       let saveTemp = new Transaction({ accountA, accountB, product });
+       let saveTemp = new Transaction({ accountA:infoTransaction[0]._id, accountB:infoTransaction[1]._id, product });
        transactionSave = await saveTemp.save();
        if (!transactionSave) return res.json({
            error: true,

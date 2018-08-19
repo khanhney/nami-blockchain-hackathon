@@ -66,11 +66,14 @@ route.post('/add-product',  async(req, res) => {
         }, {
             address: DATA_DEFAULT.contract.owner.address,
             private: DATA_DEFAULT.contract.owner.private
-        }, DATA_DEFAULT.contract.address, 'addProduct', function (err, hash) {
+        }, DATA_DEFAULT.contract.address, 'addProduct', async (err, hash)  => {
             // call function addProduct in xdayteam.sol file
             if (err) {
                 return res.status(500).json({ "error": err });
             } else {
+                let updateProduct = await Product.findByIdAndUpdate(resultSave._id, {
+                    link: hash
+                });
                 return res.status(200).json({
                     hash,
                     data: resultSave

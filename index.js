@@ -6,13 +6,25 @@ const app = express();
 const body = require('body-parser');
 const bodyParser = body.urlencoded({extended: false});
 const mongoose = require('mongoose');
+const session = require('express-session');
+
+
+/**
+ * config session
+ */
+app.use(session({
+    secret: 'alsdh93e9d927d',
+    resave: false,
+    saveUninitialized: true,
+    cookie: { maxAge: 10000 }
+}));
 /**
  * IMPORT INTERNAL
  */
 const accountRoute = require('./src/controllers/users');
 const productRoute = require('./src/controllers/products');
 const transactionRoute = require('./src/controllers/transactions');
-const viewRoute = require('./src/controllers/transactions');
+const viewRoute = require('./src/controllers');
 
 /**
  * APP CONFIG
