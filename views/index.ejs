@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<title>CHECK WITH ADDRESS</title>
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="login.css">
+
+</head>
+
+
+
+
+    <div class="main-content">
+
+        <!-- You only need this form and the form-login.css -->
+
+        <form class="form-login">
+
+            <div class="form-log-in-with-email">
+
+                <div class="form-white-background">
+
+                    <div class="form-title-row">
+                        <h1>Login With ADDRESS</h1>
+                    </div>
+
+                    <div class="form-row required">
+                            <label>
+                                <span>ADDRESS</span>
+                                <input 
+                                    class="form-control" 
+                                    id="username" 
+                                    placeholder="Address" 
+                                    required="required" 
+                                    title="" 
+                                    type="text" 
+                                />
+                            </label>
+                        </div>
+                </div>
+            </div>
+
+           
+
+        </form>
+
+    </div>
+
+    <!-- jQuery library -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(e) {
+            $('#username').keypress(function(){
+                // TODO
+            })
+        })
+    </script>
+</body>
+
+</html>
